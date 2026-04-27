@@ -104,7 +104,7 @@ export default function Promoters() {
   };
 
   const generateLink = (refCode: string) => {
-    return `${window.location.origin}/venda?ref=${refCode}`;
+    return `${window.location.origin}/?ref=${refCode}`;
   };
 
   return (
@@ -226,7 +226,7 @@ export default function Promoters() {
                         <button 
                           onClick={() => window.open(generateLink(promoter.ref_code), '_blank')}
                           className="p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-blue-500 transition-all"
-                          title="Ver Página de Venda"
+                          title="Ver Página de Recrutamento"
                         >
                           <ExternalLink className="w-4 h-4" />
                         </button>
