@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, BarChart3, CheckCircle2, ChevronRight, Play, ShieldCheck, Star, Users, Zap, MapPin, X, Clock, HelpCircle, Instagram, MessageCircle } from 'lucide-react';
+import { ArrowRight, BarChart3, CheckCircle2, ChevronRight, Play, ShieldCheck, Star, Users, Zap, MapPin, X, Clock, HelpCircle, Instagram, MessageCircle, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({
@@ -159,12 +161,42 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [instagram, setInstagram] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Olá! Gostaria de me cadastrar como promoter do Baile do Magnata.\n\nNome: ${name}\nIdade: ${age}\nInstagram: ${instagram}`;
-    window.open(`https://wa.me/5577981181047?text=${encodeURIComponent(text)}`, '_blank');
-    onClose();
+    setLoading(true);
+
+    const referredBy = localStorage.getItem('promoter_ref') || 'direto';
+
+    try {
+      // Salvar no Supabase
+      const { error } = await supabase
+        .from('leads')
+        .insert([{ 
+          name, 
+          age: parseInt(age), 
+          instagram: instagram.replace('@', ''), 
+          referred_by: referredBy,
+          type: 'promoter_application'
+        }]);
+
+      if (error) throw error;
+
+      // Abrir WhatsApp para confirmação direta
+      const text = `Olá! Acabei de me cadastrar como promoter do Baile do Magnata.\n\nNome: ${name}\nIdade: ${age}\nInstagram: ${instagram}\nRef: ${referredBy}`;
+      window.open(`https://wa.me/5577981181047?text=${encodeURIComponent(text)}`, '_blank');
+      
+      onClose();
+      setName('');
+      setAge('');
+      setInstagram('');
+    } catch (err: any) {
+      console.error('Erro ao salvar lead:', err);
+      alert('Houve um erro ao processar seu cadastro. Por favor, tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -241,10 +273,15 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
                 
                 <button 
                   type="submit"
-                  className="w-full mt-6 py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-xl transition-all active:scale-95 font-display premium-gradient shadow-[0_0_30px_rgba(212,175,55,0.3)] text-black hover:brightness-110 flex items-center justify-center gap-2 group cursor-pointer"
+                  disabled={loading}
+                  className="w-full mt-6 py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-xl transition-all active:scale-95 font-display premium-gradient shadow-[0_0_30px_rgba(212,175,55,0.3)] text-black hover:brightness-110 flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-70"
                 >
-                  Enviar para a Coordenação
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+                    <>
+                      Enviar para a Coordenação
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>
@@ -257,6 +294,15 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (ref) {
+      localStorage.setItem('promoter_ref', ref);
+      console.log('Rastreio de recrutamento ativado:', ref);
+    }
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen bg-dark-bg selection:bg-amber-500/30 selection:text-white relative font-sans overflow-x-hidden">
