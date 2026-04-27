@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
+import Dashboard from './pages/master/Dashboard';
 import Promoters from './pages/master/Promoters';
+import Events from './pages/master/Events';
+import Config from './pages/master/Config';
 import { MasterLayout } from './layouts/MasterLayout';
 
 function App() {
@@ -13,10 +16,10 @@ function App() {
 
         {/* Master Panel Routes */}
         <Route path="/master" element={<MasterLayout />}>
-          <Route index element={<Navigate to="/master/promotores" replace />} />
+          <Route index element={<Dashboard />} />
           <Route path="promotores" element={<Promoters />} />
-          <Route path="eventos" element={<div className="p-10 text-center text-slate-500">Módulo de Eventos em desenvolvimento...</div>} />
-          <Route path="config" element={<div className="p-10 text-center text-slate-500">Configurações do Painel em desenvolvimento...</div>} />
+          <Route path="eventos" element={<Events />} />
+          <Route path="config" element={<Config />} />
         </Route>
 
         {/* Fallback */}

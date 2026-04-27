@@ -6,13 +6,15 @@ import {
   Search, 
   Copy, 
   ExternalLink, 
-  MoreVertical, 
   Trash2, 
   CheckCircle2, 
   X,
   Loader2,
   AlertCircle,
-  ArrowRight
+  ArrowRight,
+  Star,
+  ShieldCheck,
+  Clock
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -25,6 +27,7 @@ interface Promoter {
 
 export default function Promoters() {
   const [promoters, setPromoters] = useState<Promoter[]>([]);
+  const [counts, setCounts] = useState({ promoters: 0, leads: 0 });
   const [loading, setLoading] = useState(true);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newPromoterName, setNewPromoterName] = useState('');
@@ -34,7 +37,23 @@ export default function Promoters() {
 
   useEffect(() => {
     fetchPromoters();
+    fetchStats();
   }, []);
+
+  async function fetchStats() {
+    try {
+      const [{ count: leadCount }, { count: promoterCount }] = await Promise.all([
+        supabase.from('leads').select('*', { count: 'exact', head: true }),
+        supabase.from('promoters').select('*', { count: 'exact', head: true })
+      ]);
+      setCounts({ 
+        promoters: promoterCount || 0, 
+        leads: leadCount || 0 
+      });
+    } catch (err) {
+      console.error('Error fetching stats:', err);
+    }
+  }
 
   async function fetchPromoters() {
     try {
@@ -72,6 +91,7 @@ export default function Promoters() {
       setNewPromoterName('');
       setNewPromoterRef('');
       fetchPromoters();
+      fetchStats();
     } catch (err: any) {
       console.error('Error adding promoter:', err);
       alert('Erro ao adicionar promotor: ' + err.message);
@@ -91,6 +111,7 @@ export default function Promoters() {
 
       if (error) throw error;
       fetchPromoters();
+      fetchStats();
     } catch (err: any) {
       console.error('Error deleting promoter:', err);
       alert('Erro ao deletar: ' + err.message);
@@ -108,132 +129,142 @@ export default function Promoters() {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-display font-black text-white uppercase tracking-wider">Gestão de Promotores</h1>
-          <p className="text-slate-500 mt-1">Gerencie sua equipe de vendas e acompanhe os links de divulgação.</p>
+          <h1 className="text-4xl font-display font-black text-transparent bg-clip-text text-gradient-gold uppercase tracking-widest">Equipe de Promotores</h1>
+          <p className="text-zinc-500 mt-2 font-medium">Controle de acesso e monitoramento de performance da elite Magnata.</p>
         </div>
         <button 
           onClick={() => setIsAddModalOpen(true)}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-500/20 active:scale-95"
+          className="premium-gradient text-black px-8 py-4 rounded-xl font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl shadow-amber-500/20 active:scale-95 group"
         >
-          <Plus className="w-5 h-5" />
-          Novo Promotor
+          <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform" />
+          Cadastrar Promoter
         </button>
       </div>
 
       {error && (
         <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center gap-3 text-red-500">
           <AlertCircle className="w-5 h-5 flex-shrink-0" />
-          <p className="text-sm font-medium">{error}</p>
+          <p className="text-sm font-bold uppercase tracking-wider">{error}</p>
         </div>
       )}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          { label: 'Total de Promotores', value: promoters.length, icon: Users, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-          { label: 'Cliques Hoje', value: '428', icon: ExternalLink, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-          { label: 'Conversão Média', value: '12.4%', icon: CheckCircle2, color: 'text-amber-500', bg: 'bg-amber-500/10' },
+          { label: 'Total de Promotores', value: counts.promoters, icon: Users, color: 'text-amber-500', bg: 'bg-amber-500/10' },
+          { label: 'Recrutas Cadastrados', value: counts.leads, icon: Star, color: 'text-amber-400', bg: 'bg-amber-400/10' },
+          { label: 'Status do Sistema', value: 'HEALTHY', icon: ShieldCheck, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
         ].map((stat, i) => (
-          <div key={i} className="glass p-6 rounded-3xl border-slate-800 flex items-center gap-5">
-            <div className={`w-14 h-14 rounded-2xl ${stat.bg} ${stat.color} flex items-center justify-center`}>
-              <stat.icon className="w-7 h-7" />
+          <div key={i} className="glass p-8 rounded-[2rem] border-white/5 flex items-center gap-6 hover:border-amber-500/20 transition-all group">
+            <div className={`w-16 h-16 rounded-2xl ${stat.bg} ${stat.color} flex items-center justify-center border border-current opacity-60 group-hover:opacity-100 transition-opacity`}>
+              <stat.icon className="w-8 h-8" />
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">{stat.label}</p>
-              <h3 className="text-2xl font-black text-white mt-1">{stat.value}</h3>
+              <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em]">{stat.label}</p>
+              <h3 className="text-3xl font-display font-black text-white mt-1 group-hover:text-amber-500 transition-colors">{stat.value}</h3>
             </div>
           </div>
         ))}
       </div>
 
       {/* Table Section */}
-      <div className="glass rounded-[2rem] border-slate-800 overflow-hidden">
-        <div className="p-6 border-b border-slate-800 flex items-center justify-between gap-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+      <div className="glass rounded-[2.5rem] border-white/5 overflow-hidden shadow-2xl relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent pointer-events-none" />
+        
+        <div className="p-8 border-b border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 bg-white/[0.02]">
+          <div className="relative flex-1 max-w-md w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
             <input 
               type="text" 
-              placeholder="Buscar por nome ou código..." 
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 pl-11 pr-4 text-sm text-white focus:outline-none focus:border-blue-500/50"
+              placeholder="Localizar promoter por nome ou REF..." 
+              className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-amber-500/30 transition-all font-medium"
             />
+          </div>
+          <div className="flex items-center gap-2 text-zinc-500 text-xs font-bold uppercase tracking-widest bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+            <Clock className="w-3.5 h-3.5" />
+            Última atualização: {new Date().toLocaleTimeString()}
           </div>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/30">
-                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Nome do Promotor</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Código REF</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Link de Divulgação</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Ações</th>
+              <tr className="bg-white/[0.03]">
+                <th className="px-8 py-5 text-[10px] font-black text-amber-500 uppercase tracking-[0.25em]">Membro da Equipe</th>
+                <th className="px-8 py-5 text-[10px] font-black text-amber-500 uppercase tracking-[0.25em]">Código Identificador</th>
+                <th className="px-8 py-5 text-[10px] font-black text-amber-500 uppercase tracking-[0.25em]">Link Personalizado</th>
+                <th className="px-8 py-5 text-[10px] font-black text-amber-500 uppercase tracking-[0.25em] text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800">
+            <tbody className="divide-y divide-white/5">
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-20 text-center">
-                    <Loader2 className="w-8 h-8 text-blue-500 animate-spin mx-auto mb-4" />
-                    <p className="text-slate-500 font-medium">Carregando dados da equipe...</p>
+                  <td colSpan={4} className="px-8 py-24 text-center">
+                    <Loader2 className="w-10 h-10 text-amber-500 animate-spin mx-auto mb-4" />
+                    <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Sincronizando com Supabase...</p>
                   </td>
                 </tr>
               ) : promoters.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-20 text-center">
-                    <Users className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-                    <p className="text-slate-500 font-medium italic">Nenhum promotor cadastrado no momento.</p>
+                  <td colSpan={4} className="px-8 py-24 text-center">
+                    <Users className="w-12 h-12 text-zinc-800 mx-auto mb-4" />
+                    <p className="text-zinc-600 font-bold uppercase tracking-widest text-xs italic">Nenhum promotor recrutado ainda.</p>
                   </td>
                 </tr>
               ) : (
                 promoters.map((promoter) => (
-                  <tr key={promoter.id} className="hover:bg-slate-900/50 transition-colors group">
-                    <td className="px-6 py-5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-slate-400 group-hover:bg-blue-500/20 group-hover:text-blue-500 transition-all uppercase">
+                  <tr key={promoter.id} className="hover:bg-white/[0.04] transition-all group border-l-2 border-transparent hover:border-amber-500/50">
+                    <td className="px-8 py-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-zinc-900 border border-white/5 flex items-center justify-center font-black text-zinc-500 group-hover:premium-gradient group-hover:text-black transition-all uppercase text-lg">
                           {promoter.name.charAt(0)}
                         </div>
-                        <span className="font-bold text-white tracking-wide">{promoter.name}</span>
+                        <div>
+                          <span className="font-black text-white tracking-widest uppercase block text-sm group-hover:text-amber-500 transition-colors">{promoter.name}</span>
+                          <span className="text-[10px] text-zinc-600 uppercase font-bold tracking-wider">Membro ativo</span>
+                        </div>
                       </div>
                     </td>
-                    <td className="px-6 py-5">
-                      <code className="bg-slate-900 px-3 py-1.5 rounded-lg text-blue-400 font-mono text-sm border border-slate-800">
+                    <td className="px-8 py-6">
+                      <code className="bg-white/5 px-4 py-2 rounded-lg text-amber-500 font-mono text-sm border border-white/10 uppercase tracking-widest">
                         {promoter.ref_code}
                       </code>
                     </td>
-                    <td className="px-6 py-5">
-                      <div className="flex items-center gap-2 group/link">
-                        <span className="text-slate-400 text-xs truncate max-w-[200px] font-medium">
-                          {generateLink(promoter.ref_code)}
-                        </span>
+                    <td className="px-8 py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-black/40 px-3 py-2 rounded-lg border border-white/10 group-hover:border-amber-500/30 transition-colors flex items-center gap-2">
+                           <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest truncate max-w-[150px]">
+                            {generateLink(promoter.ref_code).replace('https://', '').replace('http://', '')}
+                          </span>
+                        </div>
                         <button 
                           onClick={() => copyToClipboard(generateLink(promoter.ref_code), promoter.id)}
-                          className={`p-2 rounded-lg transition-all ${
+                          className={`p-2.5 rounded-xl transition-all ${
                             copyStatus === promoter.id 
-                              ? 'bg-emerald-500/20 text-emerald-500' 
-                              : 'hover:bg-slate-800 text-slate-500 hover:text-white'
-                          }`}
-                          title="Copiar Link"
+                              ? 'bg-emerald-500 text-black' 
+                              : 'bg-white/5 hover:bg-amber-500 hover:text-black text-zinc-500'
+                          } shadow-lg`}
                         >
                           {copyStatus === promoter.id ? <CheckCircle2 className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                       </div>
                     </td>
-                    <td className="px-6 py-5 text-right">
-                      <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <td className="px-8 py-6 text-right">
+                      <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
                         <button 
                           onClick={() => window.open(generateLink(promoter.ref_code), '_blank')}
-                          className="p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-blue-500 transition-all"
-                          title="Ver Página de Recrutamento"
+                          className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-zinc-500 hover:text-amber-500 hover:bg-amber-500/20 transition-all border border-transparent hover:border-amber-500/30"
+                          title="Recrutamento"
                         >
                           <ExternalLink className="w-4 h-4" />
                         </button>
                         <button 
                           onClick={() => handleDeletePromoter(promoter.id)}
-                          className="p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-red-500 transition-all"
-                          title="Excluir Promotor"
+                          className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-zinc-500 hover:text-red-500 hover:bg-red-500/20 transition-all border border-transparent hover:border-red-500/30"
+                          title="Remover"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -255,65 +286,68 @@ export default function Promoters() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[60]"
               onClick={() => setIsAddModalOpen(false)}
             />
             <div className="fixed inset-0 flex items-center justify-center z-[61] p-4 pointer-events-none">
               <motion.div 
-                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                initial={{ scale: 0.9, opacity: 0, y: 30 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-[2rem] p-8 pointer-events-auto relative overflow-hidden shadow-2xl"
+                exit={{ scale: 0.9, opacity: 0, y: 30 }}
+                className="bg-black border border-amber-500/30 w-full max-w-md rounded-[2.5rem] p-10 pointer-events-auto relative overflow-hidden shadow-[0_0_80px_rgba(212,175,55,0.1)]"
               >
-                <div className="absolute top-0 right-0 p-4">
-                  <button onClick={() => setIsAddModalOpen(false)} className="text-slate-500 hover:text-white transition-colors">
+                <div className="absolute top-0 right-0 p-6">
+                  <button onClick={() => setIsAddModalOpen(false)} className="text-zinc-600 hover:text-white transition-colors p-2">
                     <X className="w-6 h-6" />
                   </button>
                 </div>
 
-                <div className="mb-8">
-                  <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4">
-                    <Plus className="w-7 h-7" />
+                <div className="mb-10 text-center">
+                  <div className="w-16 h-16 rounded-2xl premium-gradient flex items-center justify-center text-black mb-6 mx-auto shadow-xl shadow-amber-500/20">
+                    <Plus className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-display font-black text-white uppercase tracking-wider">Novo Promotor</h3>
-                  <p className="text-slate-500 text-sm mt-1">Crie um novo código de acesso para sua equipe.</p>
+                  <h3 className="text-3xl font-display font-black text-transparent bg-clip-text text-gradient-gold uppercase tracking-widest">Novo Promoter</h3>
+                  <p className="text-zinc-500 text-sm mt-2 font-medium">Designado para a equipe de elite.</p>
                 </div>
 
                 <form onSubmit={handleAddPromoter} className="space-y-6">
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Nome Completo</label>
+                  <div className="space-y-2">
+                    <label className="block text-[10px] font-black text-amber-500 uppercase tracking-[0.3em] ml-1">Nome Completo</label>
                     <input 
                       required
                       type="text" 
                       value={newPromoterName}
                       onChange={(e) => setNewPromoterName(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white placeholder-slate-700 focus:outline-none focus:border-blue-500/50 transition-all font-medium"
-                      placeholder="Ex: João da Silva"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-zinc-700 focus:outline-none focus:border-amber-500/50 transition-all font-bold tracking-wide shadow-inner"
+                      placeholder="NOME DO CANDIDATO"
                     />
                   </div>
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Código REF Personalizado</label>
+                  <div className="space-y-2">
+                    <label className="block text-[10px] font-black text-amber-500 uppercase tracking-[0.3em] ml-1">Código Identificador (REF)</label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-mono text-sm leading-none">@</span>
+                      <span className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-600 font-mono text-lg leading-none">@</span>
                       <input 
                         required
                         type="text" 
                         value={newPromoterRef}
                         onChange={(e) => setNewPromoterRef(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 pl-9 text-white placeholder-slate-700 focus:outline-none focus:border-blue-500/50 transition-all font-mono text-sm"
-                        placeholder="promoter-01"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 pl-12 text-amber-500 placeholder-zinc-700 focus:outline-none focus:border-amber-500/50 transition-all font-mono text-sm uppercase"
+                        placeholder="IDENTIFICADOR"
                       />
                     </div>
-                    <p className="text-[10px] text-slate-600 mt-2 italic px-1">O código será usado no link: ?ref=seu-codigo</p>
                   </div>
 
                   <button 
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:hover:bg-blue-500 text-white font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-500/20 transition-all active:scale-95 flex items-center justify-center gap-2 group"
+                    className="w-full py-5 rounded-xl premium-gradient disabled:opacity-50 text-black font-black text-sm uppercase tracking-[0.2em] shadow-xl shadow-amber-500/20 transition-all active:scale-95 flex items-center justify-center gap-3 group mt-4 h-16"
                   >
-                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Confirmar Cadastro'}
-                    {!loading && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+                    {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : (
+                      <>
+                        Confirmar Cadastro
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </button>
                 </form>
               </motion.div>
