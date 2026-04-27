@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import SalesPage from './pages/SalesPage';
-import Promoters from './pages/Promoters';
+import Promoters from './pages/master/Promoters';
 import { MasterLayout } from './layouts/MasterLayout';
 
 function App() {
