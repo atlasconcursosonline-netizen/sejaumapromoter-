@@ -28,65 +28,62 @@ export default function Events() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {events.map((event) => (
-          <div key={event.id} className="glass rounded-[2.5rem] border-white/5 overflow-hidden group shadow-2xl">
-            <div className="h-48 bg-zinc-900 relative overflow-hidden">
-               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
-               <div className="absolute top-6 left-6 z-20 px-4 py-2 bg-amber-500 text-black font-black text-[10px] uppercase tracking-widest rounded-full">
-                 Confirmação de Elite
+          <div key={event.id} className="glass backdrop-blur-xl rounded-[2.5rem] border-white/5 overflow-hidden group shadow-2xl relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/[0.02] to-transparent pointer-events-none" />
+            <div className="h-56 bg-zinc-950 relative overflow-hidden">
+               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+               <div className="absolute top-8 left-8 z-20 px-5 py-2.5 bg-amber-500 text-black font-black text-[10px] uppercase tracking-widest rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                 Elite Selection
                </div>
                {/* Placeholder for event cover */}
-               <div className="absolute inset-0 flex items-center justify-center text-zinc-800">
-                  <ImageIcon className="w-16 h-16 opacity-20" />
+               <div className="absolute inset-0 flex items-center justify-center text-zinc-900">
+                  <ImageIcon className="w-20 h-20 opacity-30 group-hover:scale-110 group-hover:text-amber-500 transition-all duration-700" />
                </div>
             </div>
             
-            <div className="p-10 space-y-8">
+            <div className="p-10 space-y-10 relative z-20">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-2xl font-display font-black text-white uppercase tracking-widest group-hover:text-amber-500 transition-colors">{event.title}</h3>
-                  <div className="flex items-center gap-4 mt-2 text-zinc-500 font-bold uppercase text-[10px] tracking-[0.2em]">
-                    <span className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5 text-amber-500/50" /> {event.date}</span>
-                    <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-amber-500/50" /> {event.location}</span>
+                  <h3 className="text-3xl font-display font-black text-white uppercase tracking-widest group-hover:text-amber-500 transition-colors">{event.title}</h3>
+                  <div className="flex items-center gap-6 mt-3 text-zinc-600 font-bold uppercase text-[10px] tracking-[0.3em]">
+                    <span className="flex items-center gap-2"><Calendar className="w-4 h-4 text-amber-500/40" /> {event.date}</span>
+                    <span className="flex items-center gap-2"><MapPin className="w-4 h-4 text-amber-500/40" /> {event.location}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl text-center">
-                  <Users className="w-5 h-5 text-amber-500/50 mx-auto mb-2" />
-                  <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Público Estimado</p>
-                  <p className="text-xl font-display font-black text-white">2.5k</p>
-                </div>
-                <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl text-center">
-                  <Ticket className="w-5 h-5 text-amber-500/50 mx-auto mb-2" />
-                  <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Leads Atuais</p>
-                  <p className="text-xl font-display font-black text-white">{event.leads}</p>
-                </div>
-                <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl text-center">
-                  <Star className="w-5 h-5 text-amber-500/50 mx-auto mb-2" />
-                  <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Conversão</p>
-                  <p className="text-xl font-display font-black text-white">12%</p>
-                </div>
+              <div className="grid grid-cols-3 gap-6">
+                {[
+                  { icon: Users, label: 'Público', val: '2.5k' },
+                  { icon: Ticket, label: 'Leads', val: event.leads },
+                  { icon: Star, label: 'ROI', val: '12%' },
+                ].map((stat, i) => (
+                  <div key={i} className="bg-white/[0.01] border border-white/5 p-6 rounded-[1.5rem] text-center hover:bg-white/[0.03] transition-colors group/stat">
+                    <stat.icon className="w-5 h-5 text-zinc-800 mx-auto mb-3 group-hover/stat:text-amber-500 transition-colors" />
+                    <p className="text-[10px] font-black text-zinc-700 uppercase tracking-widest mb-1">{stat.label}</p>
+                    <p className="text-xl font-display font-black text-white group-hover/stat:text-amber-500 transition-colors">{stat.val}</p>
+                  </div>
+                ))}
               </div>
 
               <div className="flex items-center gap-4 pt-4">
-                <button className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all border border-white/10">
+                <button className="flex-1 py-5 bg-white/[0.02] hover:bg-amber-500 hover:text-black hover:font-black text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-2xl transition-all border border-white/10 hover:border-amber-500/50 shadow-lg active:scale-95 leading-none">
                   Gerenciar Reserva
                 </button>
-                <button className="w-14 h-14 flex items-center justify-center bg-black border border-amber-500/30 text-amber-500 hover:premium-gradient hover:text-black rounded-xl transition-all">
-                  <ExternalLink className="w-5 h-5" />
+                <button className="w-16 h-16 flex items-center justify-center bg-black/40 border border-white/10 text-zinc-700 hover:text-amber-500 hover:border-amber-500/30 rounded-2xl transition-all shadow-inner group/btn">
+                  <ExternalLink className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
                 </button>
               </div>
             </div>
           </div>
         ))}
 
-        <div className="glass rounded-[2.5rem] border-white/5 p-10 border-dashed border-2 flex flex-col items-center justify-center text-center group cursor-pointer hover:border-amber-500/30 transition-all">
-          <div className="w-20 h-20 rounded-3xl bg-zinc-900 flex items-center justify-center text-zinc-700 mb-6 group-hover:scale-110 group-hover:text-amber-500 transition-all">
+        <div className="glass backdrop-blur-xl rounded-[2.5rem] border-white/5 p-10 border-dashed border-2 flex flex-col items-center justify-center text-center group cursor-pointer hover:border-amber-500/20 transition-all bg-white/[0.01]">
+          <div className="w-20 h-20 rounded-[2rem] bg-zinc-950 border border-white/5 flex items-center justify-center text-zinc-900 mb-8 group-hover:scale-110 group-hover:text-amber-500/30 group-hover:bg-black transition-all duration-500">
              <Plus className="w-10 h-10" />
           </div>
-          <h4 className="text-white font-display font-black uppercase tracking-widest mb-2">Agendar Novo Baile</h4>
-          <p className="text-zinc-600 text-sm font-medium">Amplie as operações para novas capitais.</p>
+          <h4 className="text-white font-display font-black uppercase tracking-[0.25em] mb-3">Expandir Operação</h4>
+          <p className="text-zinc-700 text-[10px] font-black uppercase tracking-widest leading-relaxed">Agendar novos palcos da elite.</p>
         </div>
       </div>
     </div>
