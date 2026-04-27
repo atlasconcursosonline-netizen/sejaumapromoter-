@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-brand-gold: #FFD700;
+  --color-brand-dark-gold: #B8860B;
+  --color-dark-bg: #050505;
+}
+
+body {
+  background-color: var(--color-dark-bg);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.gold-glow {
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.25);
+}
+
+.premium-gradient {
+  background: linear-gradient(135deg, #FFDF73 0%, #D4AF37 40%, #8B6508 100%);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-3d-white {
+  position: relative;
+}
+
+.text-3d-white-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 25%, #999999 48%, #FFFFFF 52%, #B0B0B0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-3d-white-shadow {
+  color: transparent;
+  text-shadow: 
+    0 1px 0px #A8A8A8,
+    0 2px 0px #989898,
+    0 3px 0px #888888,
+    0 4px 0px #707070,
+    0 5px 0px #585858,
+    0 6px 0px #404040,
+    0 7px 0px #202020,
+    0 10px 15px rgba(0, 0, 0, 0.8),
+    0 15px 30px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+.text-3d-gold {
+  position: relative;
+}
+
+.text-3d-gold-gradient {
+  background: linear-gradient(180deg, #FFF3B3 0%, #E3AE15 25%, #8B570A 48%, #FFD700 52%, #E69D0F 75%, #9A5B0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-3d-gold-shadow {
+  color: transparent;
+  text-shadow: 
+    0 1px 0px #CA8A10,
+    0 2px 0px #B5750A,
+    0 3px 0px #A06008,
+    0 4px 0px #8B5005,
+    0 5px 0px #754002,
+    0 6px 0px #5B3001,
+    0 7px 0px #442000,
+    0 8px 0px #2D1000,
+    0 12px 20px rgba(0, 0, 0, 0.9),
+    0 20px 40px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(255, 215, 0, 0.4);
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+
+@keyframes majestic-glow {
+  0%, 100% {
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2), inset 0 0 20px rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 90px rgba(212, 175, 55, 0.6), inset 0 0 40px rgba(212, 175, 55, 0.2);
+    border-color: rgba(255, 215, 0, 0.8);
+  }
+}
+
+.majestic-glow {
+  animation: majestic-glow 3s ease-in-out infinite;
+}
+
+.shimmer-overlay {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 215, 0, 0.15) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: sweep 5s infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes sweep {
+  0% { left: -100%; }
+  20%, 100% { left: 200%; }
+}
