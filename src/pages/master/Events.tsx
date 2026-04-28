@@ -26,9 +26,9 @@ export default function Events() {
   const event = {
     id: 1,
     title: "Baile do Magnata 2024",
-    date: "25 de Maio",
-    location: "Espaço Premium Vitória",
-    status: "Em Breve",
+    date: "30 de Maio",
+    location: "Fraga Lounge",
+    status: "Confirmado",
     leads: leadCount
   };
 
@@ -59,8 +59,8 @@ export default function Events() {
           <div className="absolute inset-0 bg-gradient-to-br from-amber-500/[0.02] to-transparent pointer-events-none" />
           <div className="h-56 bg-zinc-950 relative overflow-hidden">
              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
-             <div className="absolute top-8 left-8 z-20 px-5 py-2.5 bg-amber-500 text-black font-black text-[10px] uppercase tracking-widest rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-               Elite Selection
+             <div className="absolute top-8 left-8 z-20 px-5 py-2.5 bg-emerald-500 text-black font-black text-[10px] uppercase tracking-widest rounded-full shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+               Evento Confirmado
              </div>
              {/* Placeholder for event cover */}
              <div className="absolute inset-0 flex items-center justify-center text-zinc-900">
@@ -81,14 +81,14 @@ export default function Events() {
 
             <div className="grid grid-cols-3 gap-6">
               {[
-                { icon: Users, label: 'Confirmações', val: event.leads > 50 ? `${Math.floor(event.leads * 0.8)}` : '0' },
+                { icon: Users, label: 'Confirmações', val: event.leads > 0 ? `${Math.ceil(event.leads * 0.8)}` : '-' },
                 { icon: Ticket, label: 'Leads Reais', val: event.leads },
-                { icon: Star, label: 'Rank Estrela', val: event.leads > 20 ? 'TOP' : 'S' },
+                { icon: Star, label: 'Status', val: 'ATIVO' },
               ].map((stat, i) => (
                 <div key={i} className="bg-white/[0.01] border border-white/5 p-6 rounded-[1.5rem] text-center hover:bg-white/[0.03] transition-colors group/stat">
                   <stat.icon className="w-5 h-5 text-zinc-800 mx-auto mb-3 group-hover/stat:text-amber-500 transition-colors" />
                   <p className="text-[10px] font-black text-zinc-700 uppercase tracking-widest mb-1">{stat.label}</p>
-                  <p className="text-xl font-display font-black text-white group-hover/stat:text-amber-500 transition-colors">{stat.val}</p>
+                  <p className="text-xl font-display font-black text-white group-hover/stat:text-amber-500 transition-colors uppercase">{stat.val}</p>
                 </div>
               ))}
             </div>

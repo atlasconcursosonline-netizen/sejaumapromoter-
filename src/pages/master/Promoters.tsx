@@ -265,7 +265,11 @@ export default function Promoters() {
                 </tr>
               ) : (
                 filteredPromoters.map((promoter, index) => (
-                  <tr key={promoter.id} className="hover:bg-white/[0.03] transition-all group border-l-2 border-transparent hover:border-amber-500/40">
+                  <tr 
+                    key={promoter.id} 
+                    onClick={() => handleOpenStats(promoter)}
+                    className="hover:bg-white/[0.03] transition-all group border-l-2 border-transparent hover:border-amber-500/40 cursor-pointer"
+                  >
                     <td className="px-8 py-6">
                       <div className="flex items-center gap-4">
                         <div className="relative">
@@ -306,7 +310,10 @@ export default function Promoters() {
                     <td className="px-8 py-6 text-right px-10">
                       <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
                         <button 
-                          onClick={() => copyToClipboard(generateLink(promoter.ref_code), promoter.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            copyToClipboard(generateLink(promoter.ref_code), promoter.id);
+                          }}
                           className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all border ${
                             copyStatus === promoter.id 
                               ? 'bg-emerald-500 text-black border-emerald-500 shadow-lg' 
@@ -317,14 +324,20 @@ export default function Promoters() {
                           {copyStatus === promoter.id ? <CheckCircle2 className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                         <button 
-                          onClick={() => window.open(generateLink(promoter.ref_code), '_blank')}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(generateLink(promoter.ref_code), '_blank');
+                          }}
                           className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-zinc-600 hover:text-amber-500 hover:bg-amber-500/10 transition-all border border-white/5 hover:border-amber-500/20"
                           title="Visualizar Página"
                         >
                           <ExternalLink className="w-4 h-4" />
                         </button>
                         <button 
-                          onClick={() => handleDeletePromoter(promoter.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeletePromoter(promoter.id);
+                          }}
                           className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-zinc-600 hover:text-red-500 hover:bg-red-500/10 transition-all border border-white/5 hover:border-red-500/20"
                           title="Remover"
                         >

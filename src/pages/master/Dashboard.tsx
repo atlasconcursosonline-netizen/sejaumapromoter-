@@ -42,7 +42,7 @@ export default function Dashboard() {
         setStats({
           totalPromoters: promoterCount || 0,
           totalLeads: leadCount || 0,
-          leadsThisWeek: Math.floor((leadCount || 0) * 0.3), 
+          leadsThisWeek: latestLeads?.length || 0, 
           activeEvents: 1
         });
         setRecentLeads(latestLeads || []);
@@ -83,29 +83,21 @@ export default function Dashboard() {
           icon={<Users className="w-6 h-6" />} 
           label="Equipe Oficial" 
           value={stats.totalPromoters} 
-          trend="+5%" 
-          isUp={true} 
         />
         <StatCard 
           icon={<UserPlus className="w-6 h-6" />} 
           label="Recrutas Totais" 
           value={stats.totalLeads} 
-          trend="+18%" 
-          isUp={true} 
         />
         <StatCard 
           icon={<Zap className="w-6 h-6" />} 
-          label="Cresc. Semanal" 
+          label="Recentes (5D)" 
           value={stats.leadsThisWeek} 
-          trend="Estável" 
-          isUp={true} 
         />
         <StatCard 
           icon={<Calendar className="w-6 h-6" />} 
           label="Eventos Ativos" 
           value={stats.activeEvents} 
-          trend="OK" 
-          isUp={true} 
         />
       </div>
 
@@ -161,7 +153,7 @@ export default function Dashboard() {
                 { label: 'Exportar Dados', desc: 'Relatório Completo', icon: TrendingUp },
                 { label: 'Comunicado', desc: 'Push via WhatsApp', icon: Zap },
               ].map((action, i) => (
-                <button key={i} className="w-full group flex items-center justify-between p-5 bg-white/[0.02] hover:premium-gradient transition-all rounded-3xl border border-white/5 hover:border-amber-500/50 shadow-xl overflow-hidden relative">
+                <button key={i} className="w-full group flex items-center justify-between p-5 bg-white/[0.02] hover:premium-gradient transition-all rounded-3xl border border-white/5 hover:border-amber-500/50 shadow-xl overflow-hidden relative text-left">
                   <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity" />
                   <div className="flex items-center gap-4 relative z-10">
                     <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center text-amber-500 group-hover:bg-black group-hover:text-amber-500 transition-all">
@@ -178,16 +170,12 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="premium-gradient p-8 rounded-[2.5rem] text-black shadow-[0_0_50px_rgba(212,175,55,0.15)] relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-[40px] rounded-full -mr-16 -mt-16 group-hover:w-40 group-hover:h-40 transition-all duration-700" />
-            <h4 className="text-xl font-display font-black uppercase tracking-widest mb-2 leading-none relative z-10">Meta Mensal</h4>
-            <div className="flex items-center justify-between mb-4 relative z-10">
-              <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Recrutamento Equipe</span>
-              <span className="text-sm font-black uppercase tracking-widest underline decoration-black/20 underline-offset-4 Decoration-2">74%</span>
+          <div className="bg-zinc-900/50 border border-white/5 p-8 rounded-[2.5rem] text-zinc-500 relative overflow-hidden group">
+            <div className="flex items-center gap-3 mb-2">
+              <ShieldCheck className="w-4 h-4 text-amber-500/50" />
+              <h4 className="text-[10px] font-black uppercase tracking-widest">Segurança de Dados</h4>
             </div>
-            <div className="w-full h-2.5 bg-black/10 rounded-full overflow-hidden relative z-10 shadow-inner">
-              <div className="w-[74%] h-full bg-black shadow-[0_0_15px_rgba(0,0,0,0.3)]" />
-            </div>
+            <p className="text-[10px] font-bold uppercase tracking-wider leading-relaxed">Sincronização em tempo real ativa. Todas as métricas extraídas diretamente do banco de dados operacional.</p>
           </div>
         </div>
       </div>
@@ -206,10 +194,12 @@ function StatCard({ icon, label, value, trend, isUp }: any) {
         <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-[0.25em] mb-1">{label}</p>
         <div className="flex items-end gap-3">
           <h3 className="text-4xl font-display font-black text-white group-hover:text-amber-500 transition-colors">{value}</h3>
-          <span className={`text-[9px] font-black uppercase flex items-center gap-1 mb-2 px-2 py-0.5 rounded-full border ${isUp ? 'text-emerald-500 border-emerald-500/10 bg-emerald-500/5' : 'text-rose-500 border-rose-500/10 bg-rose-500/5'}`}>
-            {isUp ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-            {trend}
-          </span>
+          {trend && (
+            <span className={`text-[9px] font-black uppercase flex items-center gap-1 mb-2 px-2 py-0.5 rounded-full border ${isUp ? 'text-emerald-500 border-emerald-500/10 bg-emerald-500/5' : 'text-rose-500 border-rose-500/10 bg-rose-500/5'}`}>
+              {isUp ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+              {trend}
+            </span>
+          )}
         </div>
       </div>
     </div>
