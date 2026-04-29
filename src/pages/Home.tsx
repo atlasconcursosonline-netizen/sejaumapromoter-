@@ -330,6 +330,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-dark-bg selection:bg-amber-500/30 selection:text-white relative font-sans overflow-x-hidden">
+      {/* Background Video Layer */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-black/80 z-10" />
+        <video 
+          key={heroVideoUrl}
+          src={heroVideoUrl || 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4'}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black z-20" />
+      </div>
+
       <DecorativeGlow />
       
       <RegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
@@ -355,24 +370,6 @@ export default function Home() {
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto flex flex-col items-center text-center mt-10 md:mt-16 mb-24 md:mb-32 relative">
           
-            {/* Hero Video Background */}
-            {(heroVideoUrl || true) && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.15 }}
-                className="absolute inset-x-0 -top-20 h-[800px] z-0 pointer-events-none overflow-hidden rounded-full blur-[100px]"
-              >
-                <video 
-                  src={heroVideoUrl || 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4'}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            )}
-
           {/* Animated Background Images */}
           <motion.img 
             initial={{ opacity: 0, x: -30, y: 0 }}
@@ -545,16 +542,14 @@ export default function Home() {
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/20 to-transparent z-10 pointer-events-none" />
                 
-                {nationalVideoUrl ? (
-                  <video 
-                    src={nationalVideoUrl}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity"
-                  />
-                ) : null}
+                <video 
+                  src={nationalVideoUrl || heroVideoUrl || 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4'}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity"
+                />
 
                 <motion.img 
                   animate={{ scale: [1, 1.05, 1], y: [0, -10, 0] }}
