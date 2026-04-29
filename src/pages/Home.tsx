@@ -298,6 +298,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchParams] = useSearchParams();
   const [heroVideoUrl, setHeroVideoUrl] = useState<string | null>(null);
+  const [nationalVideoUrl, setNationalVideoUrl] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchHeroSettings() {
@@ -307,9 +308,15 @@ export default function Home() {
           .select('hero_video_url, atracaonacional_video_url')
           .eq('id', 1)
           .single();
-        if (data && data.hero_video_url) setHeroVideoUrl(data.hero_video_url);
+        
+        // Use the actual Supabase URL provided by user as the default if DB is empty for hero
+        const defaultHero = 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4';
+        
+        setHeroVideoUrl(data?.hero_video_url || defaultHero);
+        setNationalVideoUrl(data?.atracaonacional_video_url || null);
       } catch (err) {
         console.log('Sem vídeo dinâmico, usando assets estáticos.');
+        setHeroVideoUrl('https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4');
       }
     }
     fetchHeroSettings();
@@ -348,23 +355,23 @@ export default function Home() {
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto flex flex-col items-center text-center mt-10 md:mt-16 mb-24 md:mb-32 relative">
           
-          {/* Hero Video Background */}
-          {heroVideoUrl && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.1 }}
-              className="absolute inset-x-0 -top-20 h-[800px] z-0 pointer-events-none overflow-hidden rounded-full blur-[100px]"
-            >
-              <video 
-                src={heroVideoUrl}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-          )}
+            {/* Hero Video Background */}
+            {(heroVideoUrl || true) && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.15 }}
+                className="absolute inset-x-0 -top-20 h-[800px] z-0 pointer-events-none overflow-hidden rounded-full blur-[100px]"
+              >
+                <video 
+                  src={heroVideoUrl || 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4'}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            )}
 
           {/* Animated Background Images */}
           <motion.img 
@@ -529,22 +536,34 @@ export default function Home() {
               </ul>
             </motion.div>
             
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900 to-black border-2 border-amber-500/30 group gold-glow shadow-2xl flex items-end justify-center"
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/20 to-transparent z-10 pointer-events-none" />
-              <motion.img 
-                animate={{ scale: [1, 1.05, 1], y: [0, -10, 0] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                src="https://i.imgur.com/IXvkbLG.png" 
-                alt="MC Paiva"
-                className="w-[120%] h-auto md:h-full object-cover md:object-contain object-bottom opacity-90 mix-blend-screen filter contrast-[1.1] saturate-[1.2]"
-                style={{ maskImage: 'linear-gradient(to top, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to top, black 60%, transparent 100%)' }}
-              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900 to-black border-2 border-amber-500/30 group gold-glow shadow-2xl flex items-end justify-center"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/20 to-transparent z-10 pointer-events-none" />
+                
+                {nationalVideoUrl ? (
+                  <video 
+                    src={nationalVideoUrl}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity"
+                  />
+                ) : null}
+
+                <motion.img 
+                  animate={{ scale: [1, 1.05, 1], y: [0, -10, 0] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                  src="https://i.imgur.com/IXvkbLG.png" 
+                  alt="MC Paiva"
+                  className="w-[120%] h-auto md:h-full object-cover md:object-contain object-bottom opacity-90 mix-blend-screen filter contrast-[1.1] saturate-[1.2] relative z-10"
+                  style={{ maskImage: 'linear-gradient(to top, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to top, black 60%, transparent 100%)' }}
+                />
               <div className="absolute top-6 left-6 z-20">
                 <div className="bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
                   Atração Nacional
