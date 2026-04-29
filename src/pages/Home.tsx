@@ -544,24 +544,15 @@ export default function Home() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900 to-black border-2 border-amber-500/30 group gold-glow shadow-2xl flex items-end justify-center"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/20 to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/20 to-transparent z-10" />
                 
                 <video 
                   src={nationalVideoUrl || heroVideoUrl || 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4'}
-                  autoPlay
-                  muted
+                  controls
                   loop
                   playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity"
-                />
-
-                <motion.img 
-                  animate={{ scale: [1, 1.05, 1], y: [0, -10, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                  src="https://i.imgur.com/IXvkbLG.png" 
-                  alt="MC Paiva"
-                  className="w-[120%] h-auto md:h-full object-cover md:object-contain object-bottom opacity-90 mix-blend-screen filter contrast-[1.1] saturate-[1.2] relative z-10"
-                  style={{ maskImage: 'linear-gradient(to top, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to top, black 60%, transparent 100%)' }}
+                  preload="auto"
+                  className="absolute inset-0 w-full h-full object-cover opacity-80"
                 />
               <div className="absolute top-6 left-6 z-20">
                 <div className="bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
