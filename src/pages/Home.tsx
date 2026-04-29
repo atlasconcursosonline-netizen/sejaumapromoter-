@@ -309,10 +309,16 @@ export default function Home() {
           .eq('id', 1)
           .single();
         
-        // Use the actual Supabase URL provided by user as the default if DB is empty for hero
+        // Use the actual Supabase URL provided by user as the default if DB is empty or has placeholder
         const defaultHero = 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4';
+        const urlFromDb = data?.hero_video_url;
         
-        setHeroVideoUrl(data?.hero_video_url || defaultHero);
+        if (urlFromDb && !urlFromDb.includes('COLE_O_LINK') && urlFromDb.startsWith('http')) {
+          setHeroVideoUrl(urlFromDb);
+        } else {
+          setHeroVideoUrl(defaultHero);
+        }
+        
         setNationalVideoUrl(data?.atracaonacional_video_url || null);
       } catch (err) {
         console.log('Sem vídeo dinâmico, usando assets estáticos.');
