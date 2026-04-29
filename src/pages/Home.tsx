@@ -215,7 +215,7 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-dark-bg border border-amber-500/30 w-full max-w-md rounded-3xl p-6 md:p-8 relative pointer-events-auto gold-glow overflow-hidden"
+              className="bg-dark-bg border border-amber-500/30 w-full max-w-md rounded-3xl p-8 relative pointer-events-auto gold-glow overflow-hidden"
             >
               <div className="absolute top-0 left-1/2 -ml-[150px] w-[300px] h-[300px] rounded-full bg-amber-600/10 blur-[80px] pointer-events-none" />
               
@@ -243,7 +243,7 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
                     type="text" 
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 md:py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16 md:h-16"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16"
                     placeholder="Seu nome"
                   />
                 </div>
@@ -256,7 +256,7 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
                       value={age}
                       onChange={(e) => setAge(e.target.value)}
                       min="18"
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 md:py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16 md:h-16"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16"
                       placeholder="Sua idade"
                     />
                   </div>
@@ -267,7 +267,7 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
                       type="text" 
                       value={instagram}
                       onChange={(e) => setInstagram(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 md:py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16 md:h-16"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16"
                       placeholder="@seuinstagram"
                     />
                   </div>
@@ -328,28 +328,28 @@ export default function Home() {
           </div>
       </nav>
 
-      <main className="pt-20 md:pt-32 pb-24 px-5 relative z-10 w-full overflow-x-hidden">
+      <main className="pt-28 md:pt-32 pb-24 px-5 relative z-10 w-full overflow-x-hidden">
         
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto flex flex-col items-center text-center mt-6 md:mt-16 mb-20 md:mb-32 relative">
+        <section className="max-w-7xl mx-auto flex flex-col items-center text-center mt-10 md:mt-16 mb-24 md:mb-32 relative">
           
           {/* Animated Background Images */}
           <motion.img 
             initial={{ opacity: 0, x: -30, y: 0 }}
-            animate={{ opacity: 0.15, x: 0, y: [-15, 15, -15] }}
+            animate={{ opacity: 0.2, x: 0, y: [-15, 15, -15] }}
             transition={{ y: { duration: 6, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 1 }, x: { duration: 1 } }}
             src="https://i.imgur.com/Tu6pgiV.png" 
             alt="Hero Element Left"
-            className="absolute -left-10 md:-left-20 -top-5 w-40 md:w-64 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150"
+            className="absolute -left-10 md:-left-20 -top-10 w-48 md:w-64 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150"
             style={{ maskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)', WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)' }}
           />
           <motion.img 
             initial={{ opacity: 0, x: 30, y: 0 }}
-            animate={{ opacity: 0.15, x: 0, y: [15, -15, 15] }}
+            animate={{ opacity: 0.2, x: 0, y: [15, -15, 15] }}
             transition={{ y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }, opacity: { duration: 1 }, x: { duration: 1 } }}
             src="https://i.imgur.com/95mpUfR.png" 
             alt="Hero Element Right"
-            className="absolute -right-10 md:-right-20 top-10 w-40 md:w-64 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150"
+            className="absolute -right-10 md:-right-20 top-20 w-48 md:w-64 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150"
             style={{ maskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)', WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)' }}
           />
 
@@ -357,10 +357,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-[8px] md:text-xs font-black tracking-[0.25em] uppercase mb-4 md:mb-12 relative z-20"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-[9px] md:text-xs font-black tracking-[0.25em] uppercase mb-8 md:mb-12 relative z-20"
           >
-            <Star className="w-2.5 md:w-3.5 h-2.5 md:h-3.5 fill-amber-500" />
-            <span>Seleção 2026 • Feira de Santana - BA</span>
+            <Star className="w-3 md:w-3.5 h-3 md:h-3.5 fill-amber-500" />
+            <span>Seleção 2024 • Vitória / ES</span>
           </motion.div>
           
           <motion.div
@@ -368,7 +368,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             style={{ perspective: 1200 }}
-            className="mb-4 md:mb-12 z-20 w-full"
+            className="mb-8 md:mb-12 z-20 w-full"
           >
             <motion.h1
               animate={{ rotateX: [4, -4, 4], rotateY: [-2, 2, -2], y: [-3, 3, -3] }}
@@ -377,11 +377,11 @@ export default function Home() {
             >
               <Animated3DText 
                 text="SEJA UMA" 
-                className="text-3d-white text-3xl sm:text-6xl md:text-8xl lg:text-[110px] tracking-tight leading-[0.85] z-10 relative mb-1 md:-mb-2" 
+                className="text-3d-white text-4xl sm:text-6xl md:text-8xl lg:text-[110px] tracking-tight leading-[0.85] z-10 relative mb-1 md:-mb-2" 
               />
               <Animated3DText 
                 text="PROMOTER" 
-                className="text-3d-gold text-4xl sm:text-7xl md:text-[80px] lg:text-[120px] tracking-tight leading-[0.85] relative z-20" 
+                className="text-3d-gold text-5xl sm:text-7xl md:text-[80px] lg:text-[120px] tracking-tight leading-[0.85] relative z-20" 
                 delayOffset={0.5} 
               />
             </motion.h1>
@@ -391,26 +391,26 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[10px] md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-6 md:mb-14 font-medium px-4"
+            className="text-base md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-10 md:mb-14 font-medium px-4"
           >
             Faça parte da elite do <strong className="text-amber-400 font-display uppercase tracking-wider">Baile do Magnata</strong>. <br className="hidden md:block" /> 
-            Acesso VIP e visibilidade exclusiva.
+            Ganhe visibilidade e acesso premium exclusivo.
           </motion.p>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-6 w-full max-w-md md:max-w-none"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full max-w-md md:max-w-none"
           >
-            <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto h-14 md:h-20 group relative flex items-center justify-center gap-4 premium-gradient text-black px-10 rounded-2xl font-black text-xs md:text-lg shadow-2xl active:scale-95 transition-all uppercase tracking-[0.2em] font-display">
+            <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto h-16 md:h-20 group relative flex items-center justify-center gap-4 premium-gradient text-black px-10 rounded-2xl font-black text-sm md:text-lg shadow-2xl active:scale-95 transition-all uppercase tracking-[0.2em] font-display">
               Quero Me Cadastrar
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             
-            <div className="flex items-center justify-center gap-3 text-[9px] md:text-xs font-black text-zinc-600 uppercase tracking-[0.25em] h-10 md:h-14">
-               <MapPin className="w-3 md:w-4 h-3 md:h-4 text-amber-500/50" />
-               Fraga Lounge • Feira de Santana - BA
+            <div className="flex items-center justify-center gap-3 text-[10px] md:text-xs font-black text-zinc-600 uppercase tracking-[0.25em] h-14">
+               <MapPin className="w-4 h-4 text-amber-500/50" />
+               Fraga Lounge • Vitória/ES
             </div>
           </motion.div>
         </section>
@@ -475,7 +475,7 @@ export default function Home() {
                 </motion.h2>
               </motion.div>
               <p className="text-gray-400 text-lg leading-relaxed mb-10">
-                Ser uma <strong>Promoter Magnata</strong> não é apenas sobre divulgar um evento, é sobre se posicionar ao lado dos maiores. No <strong>Fraga Lounge</strong>, você terá o tratamento que merece.
+                Ser uma <strong>Promoter Magnata</strong> não é apenas sobre divulgar um evento, é sobre se posicionar ao lado dos maiores. No <strong>Espaço Fraga Lounge Eventos</strong>, você terá o tratamento que merece.
               </p>
               <ul className="space-y-6">
                 {[
@@ -714,7 +714,7 @@ function PricingCard({ name, price, subtitle, features, recommended, delay, onSe
         </ul>
       </div>
 
-      <button onClick={onSelect} className={`w-full py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl transition-all active:scale-95 font-display cursor-pointer ${
+      <button onClick={onSelect} className={`w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-xl transition-all active:scale-95 font-display cursor-pointer ${
         recommended
         ? 'premium-gradient shadow-[0_0_30px_rgba(212,175,55,0.3)] text-black hover:brightness-110'
         : 'bg-white/5 border border-white/10 text-white hover:bg-white/10'
