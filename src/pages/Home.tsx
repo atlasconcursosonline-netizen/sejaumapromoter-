@@ -297,8 +297,23 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchParams] = useSearchParams();
+  const [heroVideoUrl, setHeroVideoUrl] = useState<string | null>(null);
 
   useEffect(() => {
+    async function fetchHeroSettings() {
+      try {
+        const { data } = await supabase
+          .from('site_settings')
+          .select('value')
+          .eq('key', 'hero_video_url')
+          .single();
+        if (data && data.value) setHeroVideoUrl(data.value);
+      } catch (err) {
+        console.log('Sem vídeo dinâmico, usando assets estáticos.');
+      }
+    }
+    fetchHeroSettings();
+
     const ref = searchParams.get('ref');
     if (ref) {
       localStorage.setItem('promoter_ref', ref);
@@ -333,6 +348,24 @@ export default function Home() {
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto flex flex-col items-center text-center mt-10 md:mt-16 mb-24 md:mb-32 relative">
           
+          {/* Hero Video Background */}
+          {heroVideoUrl && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.1 }}
+              className="absolute inset-x-0 -top-20 h-[800px] z-0 pointer-events-none overflow-hidden rounded-full blur-[100px]"
+            >
+              <video 
+                src={heroVideoUrl}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          )}
+
           {/* Animated Background Images */}
           <motion.img 
             initial={{ opacity: 0, x: -30, y: 0 }}

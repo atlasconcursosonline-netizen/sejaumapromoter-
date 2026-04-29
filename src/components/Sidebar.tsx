@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Users, LayoutDashboard, Settings, LogOut, Star } from 'lucide-react';
+import { Users, LayoutDashboard, Settings, LogOut, Star, Film } from 'lucide-react';
 
 export function Sidebar() {
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/master' },
     { icon: Users, label: 'Promotores', path: '/master/promotores' },
     { icon: Star, label: 'Eventos', path: '/master/eventos' },
+    { icon: Film, label: 'Media Assets', path: '/master/midia' },
     { icon: Settings, label: 'Configurações', path: '/master/config' },
   ];
 

@@ -10,6 +10,7 @@ export function Navbar() {
       case '/master': return 'Dashboard Geral';
       case '/master/promotores': return 'Time de Promotores';
       case '/master/eventos': return 'Gestão de Eventos';
+      case '/master/midia': return 'Media Assets Central';
       case '/master/config': return 'Configurações de Elite';
       default: return 'Magnata Master';
     }

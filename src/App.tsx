@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/master/Dashboard';
 import Promoters from './pages/master/Promoters';
 import Events from './pages/master/Events';
+import Media from './pages/master/Media';
 import Config from './pages/master/Config';
 import { MasterLayout } from './layouts/MasterLayout';
 
@@ -19,6 +20,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="promotores" element={<Promoters />} />
           <Route path="eventos" element={<Events />} />
+          <Route path="midia" element={<Media />} />
           <Route path="config" element={<Config />} />
         </Route>
 
