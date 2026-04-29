@@ -542,27 +542,22 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900 to-black border-2 border-amber-500/30 group gold-glow shadow-2xl flex items-end justify-center"
+                className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-black border-2 border-amber-500/30 group gold-glow shadow-2xl flex items-end justify-center"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/20 to-transparent z-10" />
-                
                 <video 
                   src={nationalVideoUrl || heroVideoUrl || 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4'}
                   controls
                   loop
                   playsInline
                   preload="auto"
-                  className="absolute inset-0 w-full h-full object-cover opacity-80"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               <div className="absolute top-6 left-6 z-20">
                 <div className="bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
                   Atração Nacional
                 </div>
               </div>
-              <div className="absolute bottom-8 left-8 right-8 z-20">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/20 backdrop-blur-md mb-6 border border-amber-500/50 shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-                  <Play className="w-6 h-6 text-amber-400 ml-1" />
-             </div>
+              <div className="absolute bottom-10 left-8 right-8 z-20">
                 <h3 className="font-display text-5xl font-black text-white uppercase tracking-wider mb-2 drop-shadow-lg">MC Paiva</h3>
                 <p className="text-amber-500 font-bold uppercase tracking-widest text-sm drop-shadow-md">+ Line-Up Exclusivo</p>
               </div>
