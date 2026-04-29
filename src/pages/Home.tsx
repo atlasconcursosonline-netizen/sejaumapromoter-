@@ -304,10 +304,10 @@ export default function Home() {
       try {
         const { data } = await supabase
           .from('site_settings')
-          .select('value')
-          .eq('key', 'hero_video_url')
+          .select('hero_video_url, atracaonacional_video_url')
+          .eq('id', 1)
           .single();
-        if (data && data.value) setHeroVideoUrl(data.value);
+        if (data && data.hero_video_url) setHeroVideoUrl(data.hero_video_url);
       } catch (err) {
         console.log('Sem vídeo dinâmico, usando assets estáticos.');
       }

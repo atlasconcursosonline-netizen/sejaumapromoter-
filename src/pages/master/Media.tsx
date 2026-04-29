@@ -16,11 +16,14 @@ export default function Media() {
     try {
       const { data, error } = await supabase
         .from('site_settings')
-        .select('value')
-        .eq('key', 'hero_video_url')
+        .select('hero_video_url, atracaonacional_video_url')
+        .eq('id', 1)
         .single();
       
-      if (data) setVideoUrl(data.value);
+      if (data) {
+        setVideoUrl(data.hero_video_url || '');
+        // Note: You can add another state for atracaonacional_video_url if needed
+      }
     } catch (err) {
       console.error('Erro ao buscar configurações:', err);
     } finally {
@@ -41,7 +44,7 @@ export default function Media() {
       const filePath = `${fileName}`;
 
       // 1. Upload to Supabase Storage
-      const { error: uploadError, data } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from('midia_magnata')
         .upload(filePath, file);
 
@@ -52,19 +55,20 @@ export default function Media() {
         .from('midia_magnata')
         .getPublicUrl(filePath);
 
-      // 3. Save to site_settings
-      const { error: upsertError } = await supabase
+      // 3. Save to site_settings using the new column structure
+      const { error: updateError } = await supabase
         .from('site_settings')
-        .upsert({ key: 'hero_video_url', value: publicUrl }, { onConflict: 'key' });
+        .update({ hero_video_url: publicUrl })
+        .eq('id', 1);
 
-      if (upsertError) throw upsertError;
+      if (updateError) throw updateError;
 
       setVideoUrl(publicUrl);
       setStatus('Sucesso! Vídeo atualizado no site.');
       setTimeout(() => setStatus(null), 5000);
     } catch (err: any) {
       console.error('Erro no upload:', err);
-      alert('Erro ao fazer upload. Verifique se o bucket "midia_magnata" existe no seu Supabase Storage.');
+      alert('Erro ao fazer upload. Verifique o bucket "midia_magnata".');
     } finally {
       setUploading(false);
     }
@@ -76,7 +80,8 @@ export default function Media() {
     try {
       const { error } = await supabase
         .from('site_settings')
-        .upsert({ key: 'hero_video_url', value: '' }, { onConflict: 'key' });
+        .update({ hero_video_url: '' })
+        .eq('id', 1);
 
       if (error) throw error;
       setVideoUrl('');
