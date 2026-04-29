@@ -24,16 +24,16 @@ function CountdownTimer() {
   }, []);
 
   return (
-    <div className="flex gap-4 md:gap-8 items-center justify-center">
+    <div className="flex gap-3 md:gap-8 items-center justify-center scale-90 md:scale-100">
       {[
         { label: 'Dias', value: timeLeft.days },
         { label: 'Horas', value: timeLeft.hours },
         { label: 'Min', value: timeLeft.minutes },
         { label: 'Seg', value: timeLeft.seconds },
       ].map((item, i) => (
-        <div key={i} className="flex flex-col items-center">
-          <div className="text-4xl md:text-6xl font-display font-black text-white mb-1 drop-shadow-xl">{String(item.value).padStart(2, '0')}</div>
-          <div className="text-[10px] md:text-xs font-bold text-amber-500 uppercase tracking-widest">{item.label}</div>
+        <div key={i} className="flex flex-col items-center min-w-[60px] md:min-w-[80px]">
+          <div className="text-3xl md:text-6xl font-display font-black text-white mb-1 drop-shadow-xl">{String(item.value).padStart(2, '0')}</div>
+          <div className="text-[8px] md:text-xs font-bold text-amber-500 uppercase tracking-[0.2em]">{item.label}</div>
         </div>
       ))}
     </div>
@@ -235,46 +235,48 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+              <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                 <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5 ml-1">Nome Completo</label>
+                  <label className="block text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">Nome Completo</label>
                   <input 
                     required
                     type="text" 
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-amber-500/50 focus:bg-white/10 transition-all font-medium"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16"
                     placeholder="Seu nome"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5 ml-1">Idade</label>
-                  <input 
-                    required
-                    type="number" 
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    min="18"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-amber-500/50 focus:bg-white/10 transition-all font-medium"
-                    placeholder="Sua idade"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5 ml-1">Instagram (@)</label>
-                  <input 
-                    required
-                    type="text" 
-                    value={instagram}
-                    onChange={(e) => setInstagram(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-amber-500/50 focus:bg-white/10 transition-all font-medium"
-                    placeholder="@seuinstagram"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">Idade</label>
+                    <input 
+                      required
+                      type="number" 
+                      value={age}
+                      onChange={(e) => setAge(e.target.value)}
+                      min="18"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16"
+                      placeholder="Sua idade"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">Instagram (@)</label>
+                    <input 
+                      required
+                      type="text" 
+                      value={instagram}
+                      onChange={(e) => setInstagram(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-700 focus:outline-none focus:border-amber-500/50 focus:bg-black/50 transition-all font-medium text-base h-16"
+                      placeholder="@seuinstagram"
+                    />
+                  </div>
                 </div>
                 
                 <button 
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-6 py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-xl transition-all active:scale-95 font-display premium-gradient shadow-[0_0_30px_rgba(212,175,55,0.3)] text-black hover:brightness-110 flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-70"
+                  className="w-full mt-8 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl transition-all active:scale-95 font-display premium-gradient text-black hover:brightness-110 flex items-center justify-center gap-3 group cursor-pointer disabled:opacity-70 h-16"
                 >
                   {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                     <>
@@ -312,102 +314,103 @@ export default function Home() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-dark-bg/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="font-display font-black text-xl tracking-widest flex items-center gap-3 uppercase">
-            <div className="w-10 h-10 rounded-lg premium-gradient flex items-center justify-center font-extrabold text-black text-sm shadow-xl shadow-amber-500/20">
-              AP
+          <div className="max-w-7xl mx-auto px-5 h-20 flex items-center justify-between">
+            <div className="font-display font-black text-lg md:text-xl tracking-widest flex items-center gap-3 uppercase">
+              <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg premium-gradient flex items-center justify-center font-extrabold text-black text-xs shadow-xl shadow-amber-500/20">
+                AP
+              </div>
+              <span className="hidden xs:inline">Acelera Produções</span>
+              <span className="xs:hidden">AP</span>
             </div>
-            Acelera Produções
+            <button onClick={() => setIsModalOpen(true)} className="text-[10px] md:text-sm font-black text-amber-500 hover:text-amber-400 transition-colors duration-200 uppercase tracking-widest font-display cursor-pointer border border-amber-500/20 px-4 py-2 rounded-lg bg-amber-500/5 md:bg-transparent md:border-none md:p-0">
+              Quero ser Promoter
+            </button>
           </div>
-          <button onClick={() => setIsModalOpen(true)} className="hidden md:block text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors duration-200 uppercase tracking-widest font-display cursor-pointer">
-            Quero ser Promoter
-          </button>
-        </div>
       </nav>
 
-      <main className="pt-32 pb-24 px-6 relative z-10">
+      <main className="pt-28 md:pt-32 pb-24 px-5 relative z-10 w-full overflow-x-hidden">
         
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto flex flex-col items-center text-center mt-8 md:mt-16 mb-32 relative">
+        <section className="max-w-7xl mx-auto flex flex-col items-center text-center mt-10 md:mt-16 mb-24 md:mb-32 relative">
           
           {/* Animated Background Images */}
           <motion.img 
-            initial={{ opacity: 0, x: -50, y: 0 }}
-            animate={{ opacity: 0.3, x: 0, y: [-15, 15, -15] }}
+            initial={{ opacity: 0, x: -30, y: 0 }}
+            animate={{ opacity: 0.2, x: 0, y: [-15, 15, -15] }}
             transition={{ y: { duration: 6, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 1 }, x: { duration: 1 } }}
             src="https://i.imgur.com/Tu6pgiV.png" 
-            alt="MC Paiva Hero Left"
-            className="absolute -left-20 -top-10 w-64 md:-left-10 md:top-0 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150 drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+            alt="Hero Element Left"
+            className="absolute -left-10 md:-left-20 -top-10 w-48 md:w-64 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150"
             style={{ maskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)', WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)' }}
           />
           <motion.img 
-            initial={{ opacity: 0, x: 50, y: 0 }}
-            animate={{ opacity: 0.3, x: 0, y: [15, -15, 15] }}
+            initial={{ opacity: 0, x: 30, y: 0 }}
+            animate={{ opacity: 0.2, x: 0, y: [15, -15, 15] }}
             transition={{ y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }, opacity: { duration: 1 }, x: { duration: 1 } }}
             src="https://i.imgur.com/95mpUfR.png" 
-            alt="MC Paiva Hero Right"
-            className="absolute -right-20 top-20 w-64 md:-right-10 md:top-20 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150 drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+            alt="Hero Element Right"
+            className="absolute -right-10 md:-right-20 top-20 w-48 md:w-64 lg:w-80 object-contain mix-blend-lighten z-0 pointer-events-none filter contrast-125 saturate-150"
             style={{ maskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)', WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)' }}
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-10"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-[9px] md:text-xs font-black tracking-[0.25em] uppercase mb-8 md:mb-12 relative z-20"
           >
-            <Star className="w-3.5 h-3.5 fill-amber-500" />
-            <span>Recrutamento Exclusivo • Feira de Santana</span>
+            <Star className="w-3 md:w-3.5 h-3 md:h-3.5 fill-amber-500" />
+            <span>Seleção 2024 • Vitória / ES</span>
           </motion.div>
           
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             style={{ perspective: 1200 }}
-            className="mb-8 z-20 w-full"
+            className="mb-8 md:mb-12 z-20 w-full"
           >
             <motion.h1
-              animate={{ rotateX: [8, -6, 8], rotateY: [-4, 6, -4], y: [-5, 5, -5] }}
+              animate={{ rotateX: [4, -4, 4], rotateY: [-2, 2, -2], y: [-3, 3, -3] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
               className="font-display font-black uppercase flex flex-col items-center transform-style-3d cursor-default drop-shadow-2xl"
             >
               <Animated3DText 
                 text="SEJA UMA" 
-                className="text-3d-white text-6xl md:text-8xl lg:text-[110px] tracking-[-0.03em] leading-[0.85] z-10 relative mb-1 md:-mb-2" 
+                className="text-3d-white text-4xl sm:text-6xl md:text-8xl lg:text-[110px] tracking-tight leading-[0.85] z-10 relative mb-1 md:-mb-2" 
               />
               <Animated3DText 
                 text="PROMOTER" 
-                className="text-3d-gold text-7xl md:text-[80px] lg:text-[120px] tracking-tight leading-[0.85] relative z-20" 
+                className="text-3d-gold text-5xl sm:text-7xl md:text-[80px] lg:text-[120px] tracking-tight leading-[0.85] relative z-20" 
                 delayOffset={0.5} 
               />
             </motion.h1>
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12 font-medium"
+            className="text-base md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-10 md:mb-14 font-medium px-4"
           >
-            Faça parte da elite de divulgação do <strong className="text-amber-400 font-display uppercase tracking-wide">Baile do Magnata</strong>. <br className="hidden md:block" /> 
-            Ganhe visibilidade, acesso premium e benefícios exclusivos no maior evento do ano.
+            Faça parte da elite do <strong className="text-amber-400 font-display uppercase tracking-wider">Baile do Magnata</strong>. <br className="hidden md:block" /> 
+            Ganhe visibilidade e acesso premium exclusivo.
           </motion.p>
           
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full max-w-md md:max-w-none"
           >
-            <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto group relative flex items-center justify-center gap-3 premium-gradient text-black px-10 py-5 rounded-xl font-bold md:text-lg shadow-[0_0_40px_rgba(212,175,55,0.4)] active:scale-95 transition-transform uppercase tracking-widest font-display">
-              Fazer meu Cadastro
+            <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto h-16 md:h-20 group relative flex items-center justify-center gap-4 premium-gradient text-black px-10 rounded-2xl font-black text-sm md:text-lg shadow-2xl active:scale-95 transition-all uppercase tracking-[0.2em] font-display">
+              Quero Me Cadastrar
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             
-            <div className="flex items-center justify-center gap-3 text-sm font-bold text-gray-400 uppercase tracking-widest mt-4 sm:mt-0">
-               <MapPin className="w-5 h-5 text-amber-500" />
-               Espaço Fraga Lounge Eventos
+            <div className="flex items-center justify-center gap-3 text-[10px] md:text-xs font-black text-zinc-600 uppercase tracking-[0.25em] h-14">
+               <MapPin className="w-4 h-4 text-amber-500/50" />
+               Fraga Lounge • Vitória/ES
             </div>
           </motion.div>
         </section>
@@ -526,26 +529,26 @@ export default function Home() {
         </section>
 
         {/* Recruitment Process */}
-        <section className="max-w-6xl mx-auto mb-32">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl font-black uppercase mb-4 tracking-wider">Jornada da Promoter</h2>
-            <p className="text-gray-400">O caminho para se tornar uma Magnata oficial.</p>
+        <section className="max-w-6xl mx-auto mb-32 px-2">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-black uppercase mb-4 tracking-wider">Como Funciona</h2>
+            <p className="text-gray-500 text-sm">O caminho para o centro do palco.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
-            <div className="hidden md:block absolute top-[40%] left-0 w-full h-[1px] bg-amber-500/20 -z-10" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 relative">
+            <div className="hidden md:block absolute top-[40%] left-0 w-full h-[1px] bg-amber-500/10 -z-10" />
             {[
-              { step: "01", title: "Cadastro", desc: "Preencha o formulário e anexe seu Insta." },
-              { step: "02", title: "Análise", desc: "Nossa equipe avalia seu engajamento." },
-              { step: "03", title: "Aprovação", desc: "Você recebe o contato da coordenação." },
-              { step: "04", title: "Acesso", desc: "Liberação do portal e material VIP." },
-              { step: "05", title: "Evento", desc: "Presença garantida no backstage." },
+              { step: "01", title: "Cadastro", desc: "Formulário rápido e link do Insta." },
+              { step: "02", title: "Análise", desc: "Equipe avalia seu perfil." },
+              { step: "03", title: "Aprovação", desc: "Contato direto via WhatsApp." },
+              { step: "04", title: "Acesso", desc: "Liberação do portal e material." },
+              { step: "05", title: "Show day", desc: "Presença VIP no backstage." },
             ].map((item, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-6 glass rounded-3xl border-white/5 relative bg-dark-bg/40 backdrop-blur-sm">
-                <div className="w-12 h-12 rounded-full premium-gradient flex items-center justify-center font-black text-black mb-4 shadow-lg shadow-amber-500/20">
+              <div key={i} className="flex flex-col items-center text-center p-8 glass rounded-3xl border-white/5 relative bg-black/40 backdrop-blur-sm">
+                <div className="w-12 h-12 rounded-2xl premium-gradient flex items-center justify-center font-black text-black mb-5 shadow-xl shadow-amber-500/20 text-sm">
                   {item.step}
                 </div>
-                <h4 className="font-bold text-white mb-2 uppercase text-xs tracking-widest">{item.title}</h4>
-                <p className="text-gray-500 text-[10px] leading-relaxed">{item.desc}</p>
+                <h4 className="font-black text-white mb-2 uppercase text-[10px] tracking-widest">{item.title}</h4>
+                <p className="text-gray-500 text-[9px] leading-relaxed font-bold uppercase tracking-wider">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -628,7 +631,7 @@ export default function Home() {
             <p className="text-gray-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
               Feira de Santana vai parar. Garanta sua vaga no time oficial do <strong className="text-amber-400">Baile do Magnata</strong> e viva essa experiência exclusiva.
             </p>
-            <button onClick={() => setIsModalOpen(true)} className="flex items-center justify-center gap-3 premium-gradient text-black px-10 py-5 rounded-xl font-black text-lg shadow-[0_0_40px_rgba(212,175,55,0.4)] active:scale-95 transition-transform w-full sm:w-auto mx-auto group uppercase tracking-widest font-display cursor-pointer">
+            <button onClick={() => setIsModalOpen(true)} className="flex items-center justify-center gap-3 premium-gradient text-black h-16 md:h-20 rounded-2xl font-black text-sm md:text-lg shadow-2xl active:scale-95 transition-transform w-full sm:w-auto mx-auto group uppercase tracking-[0.2em] font-display cursor-pointer">
               Falar com a Coordenação
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
