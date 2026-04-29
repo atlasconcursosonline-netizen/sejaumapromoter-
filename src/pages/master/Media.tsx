@@ -20,9 +20,13 @@ export default function Media() {
         .eq('id', 1)
         .single();
       
+      const sanitize = (url: string | null) => {
+        if (!url || url.includes('COLE_O_LINK') || url.includes('UNDEFINED')) return '';
+        return url;
+      };
+
       if (data) {
-        setVideoUrl(data.hero_video_url || '');
-        // Note: You can add another state for atracaonacional_video_url if needed
+        setVideoUrl(sanitize(data.hero_video_url));
       }
     } catch (err) {
       console.error('Erro ao buscar configurações:', err);

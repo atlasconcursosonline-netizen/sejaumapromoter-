@@ -297,7 +297,7 @@ function RegistrationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchParams] = useSearchParams();
-  const [heroVideoUrl, setHeroVideoUrl] = useState<string | null>(null);
+  const [heroVideoUrl, setHeroVideoUrl] = useState<string | null>('https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4');
   const [nationalVideoUrl, setNationalVideoUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -309,14 +309,18 @@ export default function Home() {
           .eq('id', 1)
           .single();
         
-        // Use the actual Supabase URL provided by user as the default if DB is empty for hero
-        const defaultHero = 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4';
-        
-        setHeroVideoUrl(data?.hero_video_url || defaultHero);
-        setNationalVideoUrl(data?.atracaonacional_video_url || null);
+        const sanitize = (url: string | null) => {
+          if (!url || url.includes('COLE_O_LINK') || url.includes('UNDEFINED')) return null;
+          return url;
+        };
+
+        const dbHero = sanitize(data?.hero_video_url);
+        const dbNational = sanitize(data?.atracaonacional_video_url);
+
+        if (dbHero) setHeroVideoUrl(dbHero);
+        if (dbNational) setNationalVideoUrl(dbNational);
       } catch (err) {
         console.log('Sem vídeo dinâmico, usando assets estáticos.');
-        setHeroVideoUrl('https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4');
       }
     }
     fetchHeroSettings();
