@@ -42,14 +42,14 @@ export default function Media() {
 
       // 1. Upload to Supabase Storage
       const { error: uploadError, data } = await supabase.storage
-        .from('assets')
+        .from('midia_magnata')
         .upload(filePath, file);
 
       if (uploadError) throw uploadError;
 
       // 2. Get Public URL
       const { data: { publicUrl } } = supabase.storage
-        .from('assets')
+        .from('midia_magnata')
         .getPublicUrl(filePath);
 
       // 3. Save to site_settings
@@ -64,7 +64,7 @@ export default function Media() {
       setTimeout(() => setStatus(null), 5000);
     } catch (err: any) {
       console.error('Erro no upload:', err);
-      alert('Erro ao fazer upload. Verifique se o bucket "assets" existe no seu Supabase Storage.');
+      alert('Erro ao fazer upload. Verifique se o bucket "midia_magnata" existe no seu Supabase Storage.');
     } finally {
       setUploading(false);
     }
