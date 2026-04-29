@@ -360,7 +360,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-[9px] md:text-xs font-black tracking-[0.25em] uppercase mb-8 md:mb-12 relative z-20"
           >
             <Star className="w-3 md:w-3.5 h-3 md:h-3.5 fill-amber-500" />
-            <span>Seleção 2024 • Vitória / ES</span>
+            <span>Seleção 2026 • Feira de Santana - BA</span>
           </motion.div>
           
           <motion.div
@@ -410,7 +410,7 @@ export default function Home() {
             
             <div className="flex items-center justify-center gap-3 text-[10px] md:text-xs font-black text-zinc-600 uppercase tracking-[0.25em] h-14">
                <MapPin className="w-4 h-4 text-amber-500/50" />
-               Fraga Lounge • Vitória/ES
+               Fraga Lounge • Feira de Santana - BA
             </div>
           </motion.div>
         </section>
@@ -475,7 +475,7 @@ export default function Home() {
                 </motion.h2>
               </motion.div>
               <p className="text-gray-400 text-lg leading-relaxed mb-10">
-                Ser uma <strong>Promoter Magnata</strong> não é apenas sobre divulgar um evento, é sobre se posicionar ao lado dos maiores. No <strong>Espaço Fraga Lounge Eventos</strong>, você terá o tratamento que merece.
+                Ser uma <strong>Promoter Magnata</strong> não é apenas sobre divulgar um evento, é sobre se posicionar ao lado dos maiores. No <strong>Fraga Lounge</strong>, você terá o tratamento que merece.
               </p>
               <ul className="space-y-6">
                 {[

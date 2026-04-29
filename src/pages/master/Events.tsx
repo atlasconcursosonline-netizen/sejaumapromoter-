@@ -25,7 +25,7 @@ export default function Events() {
 
   const event = {
     id: 1,
-    title: "Baile do Magnata 2024",
+    title: "Baile do Magnata 2026",
     date: "30 de Maio",
     location: "Fraga Lounge",
     status: "Confirmado",
