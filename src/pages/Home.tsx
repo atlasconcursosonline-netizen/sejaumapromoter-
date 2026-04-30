@@ -524,7 +524,6 @@ export default function Home() {
                   "Acesso à Área Backstage.",
                   "Networking com empresários da cidade.",
                   "Convites para levar amigos.",
-                  "Foto garantida com MC Paiva.",
                   "Vários outros benefícios ao decorrer da divulgação."
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-4">
@@ -552,15 +551,6 @@ export default function Home() {
                   preload="auto"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-              <div className="absolute top-6 left-6 z-20">
-                <div className="bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
-                  Atração Nacional
-                </div>
-              </div>
-              <div className="absolute bottom-10 left-8 right-8 z-20">
-                <h3 className="font-display text-5xl font-black text-white uppercase tracking-wider mb-2 drop-shadow-lg">MC Paiva</h3>
-                <p className="text-amber-500 font-bold uppercase tracking-widest text-sm drop-shadow-md">+ Line-Up Exclusivo</p>
-              </div>
             </motion.div>
           </div>
         </section>
@@ -620,7 +610,6 @@ export default function Home() {
                 features={[
                   "Sorteio R$500 na Shein a cada post",
                   "Área Backstage & Lounge VIP",
-                  "Foto Exclusiva com MC Paiva",
                   "Networking com Empresários",
                   "Convites VIPs p/ seus Amigos",
                   "Diversos outros benefícios",
