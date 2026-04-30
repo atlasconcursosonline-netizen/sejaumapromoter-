@@ -334,12 +334,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-dark-bg selection:bg-amber-500/30 selection:text-white relative font-sans overflow-x-hidden">
-      {/* Background Video Layer */}
+      {/* 
+          LUAN, PARA ATIVAR O VÍDEO DO ARTISTA NO FUNDO:
+          1. Descomente o bloco abaixo (remova as chaves e a tag de comentário).
+          2. Substitua a URL no 'src' pelo link do Supabase.
+          
+          DICA: O vídeo de fundo deve ter opacidade baixa (ex: opacity-10 ou 20) 
+          para não brigar com o conteúdo principal.
+      */}
+      {/* 
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-black/80 z-10" />
         <video 
-          key={heroVideoUrl}
-          src={heroVideoUrl || 'https://azlyuniavfnjgutidace.supabase.co/storage/v1/object/public/midia_magnata/hero_video_0.9536983006436293.mp4'}
+          src="COLOQUE_A_URL_DO_SUPABASE_AQUI"
           autoPlay
           muted
           loop
@@ -348,6 +355,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black z-20" />
       </div>
+      */}
 
       <DecorativeGlow />
       
