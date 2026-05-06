@@ -529,7 +529,7 @@ export default function Home() {
               <ul className="space-y-6">
                 {[
                   "Sorteio de carrinho de R$500 na Shein a cada post.",
-                  "Acesso à Área Backstage.",
+                  "Area Vip Premium.",
                   "Networking com empresários da cidade.",
                   "Convites para levar amigos.",
                   "Vários outros benefícios ao decorrer da divulgação."
@@ -576,7 +576,7 @@ export default function Home() {
               { step: "02", title: "Análise", desc: "Equipe avalia seu perfil." },
               { step: "03", title: "Aprovação", desc: "Contato direto via WhatsApp." },
               { step: "04", title: "Acesso", desc: "Liberação do portal e material." },
-              { step: "05", title: "Show day", desc: "Presença VIP no backstage." },
+              { step: "05", title: "Show day", desc: "Presença na Area Vip Premium." },
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center text-center p-8 glass rounded-3xl border-white/5 relative bg-black/40 backdrop-blur-sm">
                 <div className="w-12 h-12 rounded-2xl premium-gradient flex items-center justify-center font-black text-black mb-5 shadow-xl shadow-amber-500/20 text-sm">
@@ -617,7 +617,7 @@ export default function Home() {
                 recommended={true}
                 features={[
                   "Sorteio R$500 na Shein a cada post",
-                  "Área Backstage & Lounge VIP",
+                  "Area Vip Premium",
                   "Networking com Empresários",
                   "Convites VIPs p/ seus Amigos",
                   "Diversos outros benefícios",
